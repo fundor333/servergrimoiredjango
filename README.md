@@ -1,4 +1,13 @@
-# django-template
-My personal Django template project.
+# ServerGrimoire for Django
 
-This a blank django template for my project. Build around [this post](https://victoria.dev/blog/my-django-project-best-practices-for-happy-developers/) and other find online.
+## Django settings
+
+```
+INSTALLED_APPS
+```
+
+Add the application and any of its requirements that are not there already to INSTALLED_APPS in settings.py.
+
+```
+colorfield
+```
