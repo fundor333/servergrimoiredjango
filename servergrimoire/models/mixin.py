@@ -7,3 +7,7 @@ class LabelMixin:
 
 class CustomGroupMixin:
     labels = models.ManyToManyField("CustomGroup")
+
+
+class LabelGroupMixin(LabelMixin, CustomGroupMixin):
+    pass
