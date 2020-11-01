@@ -15,16 +15,18 @@ classifiers = [
     "Development Status :: 4 - Beta",
     "Framework :: Django",
 ]
+
 [tool.poetry.dependencies]
 python = "^3.8"
 django = "^3.1.0"
 django-colorfield = "^0.3.2"
+coverage = "^5.3"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.6.0"
 pylint-django = "^2.3.0"
 autopep8 = "^1.5.4"
-rope = "^0.17.0"
+rope = "^0.18.0"
 safety = "^1.9.0"
 flake8 = "^3.8.3"
 pre-commit = "^2.7.1"
