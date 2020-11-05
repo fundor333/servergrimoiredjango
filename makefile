@@ -7,6 +7,7 @@ help: ## Show this help
 
 .PHONY: env
 env:  ## Make venv and install requirements
+	pip install poetry
 	poetry install
 
 .PHONY: install
