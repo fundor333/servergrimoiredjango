@@ -5,10 +5,12 @@ SHELL := /bin/bash
 help: ## Show this help
 	@egrep -h '\s##\s' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
+.PHONY: env
+env:  ## Make venv and install requirements
+	poetry install
 
 .PHONY: install
-install:  ## Make venv and install requirements
-	poetry install
+install: env ## Make venv and install requirements
 	poetry run pre-commit install
 	poetry run pre-commit autoupdate
 
@@ -20,10 +22,6 @@ static: ## Make a collect static of the module
 
 .PHONY: test
 test: ## Run tests
-	poetry run python manage.py test application --verbosity=0 --parallel --failfast
-
-.PHONY: run
-run: ## Run the Django server
-	poetry run python manage.py runserver
+	DJANGO_SETTINGS_MODULE=servergrimoire.tests.settings py.test -s servergrimoire/tests --cov=servergrimoire
 
 start: install migrate run ## Install requirements, apply migrations, then start development server
