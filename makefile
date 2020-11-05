@@ -25,4 +25,8 @@ static: ## Make a collect static of the module
 test: ## Run tests
 	DJANGO_SETTINGS_MODULE=servergrimoire.tests.settings poetry run py.test -s servergrimoire/tests --cov=servergrimoire
 
+coverage: test
+	coverage report -i -m
+	coverage html
+
 start: install migrate run ## Install requirements, apply migrations, then start development server
