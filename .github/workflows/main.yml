@@ -13,7 +13,7 @@ jobs:
         with:
           python-version: "3.8"
       - name: Install dependencies
-        run: make install
+        run: make env
       - name: Run tests
         run: make test
       - uses: codecov/codecov-action@v1
