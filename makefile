@@ -23,7 +23,7 @@ static: ## Make a collect static of the module
 
 .PHONY: test
 test: ## Run tests
-	DJANGO_SETTINGS_MODULE=servergrimoire.tests.settings poetry run py.test -s servergrimoire/tests --cov=servergrimoire
+	DJANGO_SETTINGS_MODULE=servergrimoire.tests.settings poetry run py.test -s servergrimoire/tests --cov=servergrimoire --cov-report=xml
 
 .PHONY: coverage
 coverage: test ## Make coverage

@@ -1,7 +1,5 @@
 import datetime
-import logging
 import pytest
-
 
 pytestmark = pytest.mark.django_db
 
