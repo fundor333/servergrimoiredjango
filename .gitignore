@@ -306,3 +306,6 @@ modules.xml
 # End of https://www.toptal.com/developers/gitignore/api/python,django,pycharm+all,visualstudiocode
 
 .skylt_cache/
+grimoire
+
+manage.py

@@ -30,4 +30,8 @@ coverage: test ## Make coverage
 	coverage report -i -m
 	coverage html
 
+.PHONY: run
+run: ### Run the project
+	poetry run python manage.py runserver
+
 start: install migrate run ## Install requirements, apply migrations, then start development server
