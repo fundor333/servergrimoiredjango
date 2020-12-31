@@ -1,8 +1,9 @@
+# -*- coding: utf-8 -*-
 import datetime
 import socket
 import ssl
 
-from servergrimoire.models import Domain
+from servergrimoiredjango.models import Domain
 
 
 def task_ssl_check(domain: Domain) -> datetime.date | None:

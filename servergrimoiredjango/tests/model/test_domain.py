@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import datetime
 import pytest
 
@@ -7,7 +8,7 @@ pytestmark = pytest.mark.django_db
 @pytest.mark.django_db
 class TestModelDomani:
     def setUp(self):
-        from servergrimoire.models import Domain
+        from servergrimoiredjango.models import Domain
 
         now = datetime.datetime.now().date()
         days = [0, 25, -25, 300]
@@ -19,7 +20,7 @@ class TestModelDomani:
             )
 
     def test_status_ssl(self):
-        from servergrimoire.models import Domain
+        from servergrimoiredjango.models import Domain
 
         self.setUp()
         for d in Domain.objects.all():
@@ -44,7 +45,7 @@ class TestModelDomani:
                     assert stats["status"] == "OK"
 
     def test_status_domain(self):
-        from servergrimoire.models import Domain
+        from servergrimoiredjango.models import Domain
 
         self.setUp()
         for d in Domain.objects.all():

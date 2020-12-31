@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from servergrimoire.models import Server, GitLabInstallation
-from servergrimoire.task import (
+from servergrimoiredjango.models import Server, GitLabInstallation
+from servergrimoiredjango.task import (
     task_dns_check,
     task_ssl_check,
     Domain,

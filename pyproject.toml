@@ -1,10 +1,9 @@
 [tool.poetry]
 name = "servergrimoiredjango"
-version = "0.1.0"
+version = "0.1.1"
 description = "A sysadmin module for django"
 authors = ["Fundor333 <fundor333@fundor333.com>"]
 license = "Mit"
-
 keywords = ["devops", "ssl", "sysadmin", "django"]
 
 classifiers = [

@@ -1,5 +1,6 @@
-from servergrimoire.errors import GitLabTokenAbsent
-from servergrimoire.models import GitLabInstallation
+# -*- coding: utf-8 -*-
+from servergrimoiredjango.errors import GitLabTokenAbsent
+from servergrimoiredjango.models import GitLabInstallation
 import logging
 
 logger = logging.getLevelName(__name__)

@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
 import requests
 from django.db import models
 import logging
 from base64 import urlsafe_b64encode
 
-from servergrimoire.errors import GitLabTokenAbsent
+from servergrimoiredjango.errors import GitLabTokenAbsent
 
 logger = logging.getLevelName(__name__)
 

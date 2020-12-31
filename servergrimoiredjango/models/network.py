@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 import datetime
 
-from servergrimoire.models.mixin import LabelGroupMixin
+from servergrimoiredjango.models.mixin import LabelGroupMixin
 
 
 class IpModelMixin:
