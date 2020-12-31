@@ -59,11 +59,8 @@ pip-delete-this-directory.txt
 htmlcov/
 .tox/
 .nox/
-.coverage
-.coverage.*
 .cache
 nosetests.xml
-coverage.xml
 *.cover
 *.py,cover
 .hypothesis/
@@ -307,3 +304,5 @@ modules.xml
 .history
 
 # End of https://www.toptal.com/developers/gitignore/api/python,django,pycharm+all,visualstudiocode
+
+.skylt_cache/

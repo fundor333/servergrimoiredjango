@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 import datetime
 
-from servergrimoire.models.mixin import LabelGroupMixin
+from servergrimoiredjango.models.mixin import LabelGroupMixin
 
 
 class IpModelMixin:
@@ -14,7 +15,9 @@ class Domain(LabelGroupMixin, models.Model):
     ip = models.GenericIPAddressField(null=True, blank=True)
     ssl_end_date = models.DateField(null=True, blank=True)
     domain_end_date = models.DateField(null=True, blank=True)
-    day_before_allert = models.PositiveIntegerField(default=30, blank=True, null=True)
+    day_before_allert = models.PositiveIntegerField(
+        default=30, blank=True, null=True
+    )
 
     server_connected = models.ForeignKey(
         "Server", on_delete=models.SET_NULL, null=True, blank=True
@@ -24,28 +27,30 @@ class Domain(LabelGroupMixin, models.Model):
         return f"{self.domain_name} {self.ip}"
 
     @staticmethod
-    def __check_date(will_expire_in, days_num):
+    def __check_date(will_expire_in: datetime.date, days_num: int):
         if will_expire_in and days_num:
-            now = datetime.datetime.now()
-            limit = now + datetime.timedelta(days=days_num)
-            if now > will_expire_in:
+            now = datetime.datetime.now().date()
+            flag_day = now + datetime.timedelta(days=days_num)
+
+            if will_expire_in >= now:
+                if will_expire_in <= flag_day:
+                    output_strng = {
+                        "status": "XX",
+                        "expired": str(will_expire_in),
+                    }
+                else:
+                    output_strng = {
+                        "status": "OK",
+                        "expired": str(will_expire_in),
+                    }
+            elif will_expire_in < now:
                 output_strng = {
                     "status": "KO",
-                    "expired": str(will_expire_in),
-                }
-            elif will_expire_in < limit:
-                output_strng = {
-                    "status": "KO",
-                    "expired": str(will_expire_in),
-                }
-            elif will_expire_in < limit:
-                output_strng = {
-                    "status": "XX",
                     "expired": str(will_expire_in),
                 }
             else:
                 output_strng = {
-                    "status": "OK",
+                    "status": "KO",
                     "expired": str(will_expire_in),
                 }
         else:
@@ -53,20 +58,16 @@ class Domain(LabelGroupMixin, models.Model):
         return output_strng
 
     def stats_ssl(self) -> dict:
-        dict_out = {}
-        ssl_end_date = self.ssl_end_date if self.ssl_end_date else "****-**-** **:**:**"
-        ssl_valid = Domain.__check_date(self.ssl_end_date, self.day_before_allert)
-        dict_out["ssl_check"] = {"status": ssl_valid, "expired": ssl_end_date}
-        return dict_out
+        ssl_valid = Domain.__check_date(
+            self.ssl_end_date, self.day_before_allert
+        )
+        return ssl_valid
 
     def stats_domain(self) -> dict:
-        dict_out = {}
-        domain_end_date = (
-            self.domain_end_date if self.domain_end_date else "****-**-** **:**:**"
+        domain_valid = Domain.__check_date(
+            self.ssl_end_date, self.day_before_allert
         )
-        domain_valid = Domain.__check_date(self.ssl_end_date, self.day_before_allert)
-        dict_out["dns_checker"] = {"status": domain_valid, "expired": domain_end_date}
-        return dict_out
+        return domain_valid
 
 
 class Server(LabelGroupMixin, IpModelMixin, models.Model):

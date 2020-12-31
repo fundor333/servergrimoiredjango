@@ -1,11 +1,16 @@
+# -*- coding: utf-8 -*-
 import datetime
-from django.test import TestCase
-from servergrimoire.models import Domain
+import pytest
+
+pytestmark = pytest.mark.django_db
 
 
-class ModelDomaniTest(TestCase):
+@pytest.mark.django_db
+class TestModelDomani:
     def setUp(self):
-        now = datetime.datetime.now()
+        from servergrimoiredjango.models import Domain
+
+        now = datetime.datetime.now().date()
         days = [0, 25, -25, 300]
         Domain.objects.create(ssl_end_date=None, domain_end_date=None)
         for day in days:
@@ -15,43 +20,50 @@ class ModelDomaniTest(TestCase):
             )
 
     def test_status_ssl(self):
+        from servergrimoiredjango.models import Domain
+
+        self.setUp()
         for d in Domain.objects.all():
             stats = d.stats_ssl()
             if d.ssl_end_date is None:
-                self.assertEqual(stats["status", "KO"])
+                assert stats["status"] == "KO"
             elif d.day_before_allert is None:
-                self.assertEqual(stats["status", "KO"])
+                assert stats["status"] == "KO"
             else:
-                now = datetime.datetime.now()
+                now = datetime.datetime.now().date()
                 days = d.day_before_allert
                 expiration = d.ssl_end_date
 
                 flag = (expiration - now).days
 
                 if flag < 0:
-                    self.assertEqual(stats["status", "KO"])
-                elif flag < days:
-                    self.assertEqual(stats["status", "XX"])
-                elif flag >= days:
-                    self.assertEqual(stats["status", "OK"])
+                    assert stats["status"] == "KO"
+                elif flag <= days:
+                    print(d.ssl_end_date)
+                    assert stats["status"] == "XX"
+                elif flag > days:
+                    assert stats["status"] == "OK"
 
     def test_status_domain(self):
+        from servergrimoiredjango.models import Domain
+
+        self.setUp()
         for d in Domain.objects.all():
             stats = d.stats_domain()
             if d.domain_end_date is None:
-                self.assertEqual(stats["status", "KO"])
+                assert stats["status"] == "KO"
             elif d.day_before_allert is None:
-                self.assertEqual(stats["status", "KO"])
+                assert stats["status"] == "KO"
             else:
-                now = datetime.datetime.now()
+                now = datetime.datetime.now().date()
                 days = d.day_before_allert
                 expiration = d.domain_end_date
 
                 flag = (expiration - now).days
 
                 if flag < 0:
-                    self.assertEqual(stats["status", "KO"])
+                    assert stats["status"] == "KO"
                 elif flag < days:
-                    self.assertEqual(stats["status", "XX"])
+                    assert stats["status"] == "XX"
                 elif flag >= days:
-                    self.assertEqual(stats["status", "OK"])
+                    assert stats["status"] == "OK"
