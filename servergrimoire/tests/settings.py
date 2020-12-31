@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # ensure package/conf is importable
 
 DATABASES = {
@@ -13,7 +14,6 @@ INSTALLED_APPS = (
     "django.contrib.auth",
     "servergrimoire",
 )
-
 
 MIDDLEWARE_CLASSES = (
     "django.middleware.common.CommonMiddleware",
@@ -32,9 +32,7 @@ TEMPLATES = [
     }
 ]
 
-
 STATIC_URL = "/static/"
-
 
 # XMLTestRunner output
 TEST_OUTPUT_DIR = ".xmlcoverage"
