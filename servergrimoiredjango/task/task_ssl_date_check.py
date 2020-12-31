@@ -2,11 +2,12 @@
 import datetime
 import socket
 import ssl
+from typing import Optional
 
 from servergrimoiredjango.models import Domain
 
 
-def task_ssl_check(domain: Domain) -> datetime.date | None:
+def task_ssl_check(domain: Domain) -> Optional[datetime.date]:
     try:
         ssl_date_fmt = r"%b %d %H:%M:%S %Y %Z"
         context = ssl.create_default_context()

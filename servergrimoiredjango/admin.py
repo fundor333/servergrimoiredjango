@@ -38,15 +38,15 @@ class DomainAdmin(admin.ModelAdmin):
 
 
 class GitLabInstallationAdmin(admin.ModelAdmin):
-    ordering = ["name"]
-    list_display = ["domain_name", "ip"]
-    search_fields = ["domain_name", "ip"]
+    ordering = ["base_url"]
+    list_display = ["base_url", "token"]
+    search_fields = ["base_url", "token"]
 
 
 class ServerAdmin(admin.ModelAdmin):
     ordering = ["name"]
-    list_display = ["base_url", "version", "revision", "token"]
-    search_fields = ["base_url", "version", "revision", "token"]
+    list_display = ["name", "internal_ip", "external_ip"]
+    search_fields = ["name", "internal_ip", "external_ip"]
     actions = [task_gitlab_admin]
 
 

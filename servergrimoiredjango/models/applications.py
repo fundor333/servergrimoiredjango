@@ -5,11 +5,12 @@ import logging
 from base64 import urlsafe_b64encode
 
 from servergrimoiredjango.errors import GitLabTokenAbsent
+from servergrimoiredjango.models import LabelGroupMixin
 
 logger = logging.getLevelName(__name__)
 
 
-class GitLabInstallation(models.Model):
+class GitLabInstallation(LabelGroupMixin, models.Model):
     base_url = models.GenericIPAddressField(unique=True)
     token = models.CharField(max_length=40, null=True, blank=True)
     version = models.CharField(max_length=60, null=True, blank=True)
