@@ -1,18 +1,27 @@
 # -*- coding: utf-8 -*-
-from django.contrib import admin
 from django.urls import path
 
-from servergrimoiredjango.views import GrimoireDashboard, GrimoireDomainView
+from servergrimoiredjango.views import (
+    GrimoireDashboard,
+    GrimoireDomainView,
+    GrimoireDomainAdd,
+    GrimoireDomainUpdate,
+)
 
 urlpatterns = [
     path("domain/", GrimoireDashboard.as_view(), name="grimoire_domain_list"),
     path(
-        "domain/add", GrimoireDashboard.as_view(), name="grimoire_domain_add"
+        "domain/add", GrimoireDomainAdd.as_view(), name="grimoire_domain_add"
     ),
     path(
         "domain/<int:pk>",
         GrimoireDomainView.as_view(),
         name="grimoire_domain_view",
+    ),
+    path(
+        "domain/<int:pk>/update",
+        GrimoireDomainUpdate.as_view(),
+        name="grimoire_domain_update",
     ),
     path("", GrimoireDashboard.as_view(), name="grimoire_dashboard"),
 ]

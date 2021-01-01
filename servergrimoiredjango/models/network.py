@@ -19,7 +19,7 @@ class IpModelMixin(models.Model):
 
 
 class Domain(LabelGroupMixin):
-    domain_name = models.URLField(null=True, blank=True)
+    domain_name = models.URLField()
     organizzation = models.CharField(max_length=200, null=True, blank=True)
     ip = models.GenericIPAddressField(null=True, blank=True)
     ssl_end_date = models.DateField(null=True, blank=True)

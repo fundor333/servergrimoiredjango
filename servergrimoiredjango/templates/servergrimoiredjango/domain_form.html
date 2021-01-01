@@ -1,0 +1,44 @@
+{% extends "grimoire/base.html" %}
+{% block content %}
+
+<br>
+<div class="card">
+  <div class="card-body">
+
+    <form method="post" novalidate>
+      <div class="row">
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        <div class="col">
+          {{ form.domain_name.label_tag }}
+          {{ form.domain_name.errors }}
+
+          {{ form.domain_name }}
+        </div>
+
+        <div class="col">
+
+          {{ form.day_before_allert.label_tag }}
+          {{ form.day_before_allert.errors }}
+
+          {{ form.day_before_allert }}
+        </div>
+
+        <div class="col">
+
+          {{ form.server_connected.label_tag }}
+          {{ form.server_connected.errors }}
+          {{ form.server_connected }}
+        </div>
+      </div>
+  <br>
+      <div class="row justify-content-center">
+        <input type="submit" class="btn col-sm-4 btn-outline-success" value="Save">
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
