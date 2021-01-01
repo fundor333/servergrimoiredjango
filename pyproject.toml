@@ -23,6 +23,7 @@ pyOpenssl = "^19.1.0"
 dnspython = "^2.0.0"
 python-whois = "^0.7.3"
 requests = "^2.24.0"
+django-filter = "^2.4.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.6.0"
