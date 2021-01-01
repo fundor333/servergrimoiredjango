@@ -2,12 +2,18 @@
 from django.db import models
 
 
-class LabelMixin:
+class LabelMixin(models.Model):
     labels = models.ManyToManyField("Label")
 
+    class Meta:
+        abstract = True
 
-class CustomGroupMixin:
-    labels = models.ManyToManyField("CustomGroup")
+
+class CustomGroupMixin(models.Model):
+    groups = models.ManyToManyField("CustomGroup")
+
+    class Meta:
+        abstract = True
 
 
 class LabelGroupMixin(LabelMixin, CustomGroupMixin):

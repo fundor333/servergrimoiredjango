@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from servergrimoiredjango.models import Server, GitLabInstallation
+from servergrimoiredjango.models import (
+    Server,
+    GitLabInstallation,
+    Label,
+    CustomGroup,
+)
 from servergrimoiredjango.task import (
     task_dns_check,
     task_ssl_check,
@@ -31,8 +36,8 @@ task_gitlab_admin.short_description = "Run Gitlab check"
 
 
 class DomainAdmin(admin.ModelAdmin):
-    list_display = ["domain_name", "ip"]
-    search_fields = ["domain_name", "ip"]
+    list_display = ["domain_name", "ip", "organizzation"]
+    search_fields = ["domain_name", "ip", "organizzation"]
     ordering = ["domain_name"]
     actions = [task_dns_check_admin, task_ssl_check_admin]
 
@@ -50,6 +55,20 @@ class ServerAdmin(admin.ModelAdmin):
     actions = [task_gitlab_admin]
 
 
+class LabelAdmin(admin.ModelAdmin):
+    ordering = ["name"]
+    list_display = ["name", "color_bk", "color_fn"]
+    search_fields = ["name", "color_bk", "color_fn"]
+
+
+class CustomGroupAdmin(admin.ModelAdmin):
+    ordering = ["name"]
+    list_display = ["name", "color_bk", "color_fn"]
+    search_fields = ["name", "color_bk", "color_fn"]
+
+
 admin.site.register(Domain, DomainAdmin)
+admin.site.register(Label, LabelAdmin)
+admin.site.register(CustomGroup, CustomGroupAdmin)
 admin.site.register(Server, ServerAdmin)
 admin.site.register(GitLabInstallation, GitLabInstallationAdmin)

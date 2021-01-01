@@ -3,6 +3,7 @@ import datetime
 import socket
 import ssl
 from typing import Optional
+from urllib.parse import urlparse
 
 from servergrimoiredjango.models import Domain
 
@@ -13,14 +14,20 @@ def task_ssl_check(domain: Domain) -> Optional[datetime.date]:
         context = ssl.create_default_context()
         conn = context.wrap_socket(
             socket.socket(socket.AF_INET),
-            server_hostname=domain.domain_name,
+            server_hostname=urlparse(domain.domain_name).netloc,
         )
-        conn.connect((domain.domain_name, 443))
+        conn.connect((urlparse(domain.domain_name).netloc, 443))
         ssl_info = conn.getpeercert()
         ssl_date = datetime.datetime.strptime(
             ssl_info["notAfter"], ssl_date_fmt
         ).date()
+        try:
+            organizzator = ssl_info["issuer"][2][0][1]
+        except Exception:
+            organizzator = "***"
+        domain.organizzation = organizzator
         domain.ssl_end_date = ssl_date
+
         domain.save()
         return ssl_date
     except ResourceWarning:
