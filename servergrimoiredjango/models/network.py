@@ -33,7 +33,10 @@ class Domain(LabelGroupMixin):
     )
 
     def __str__(self):
-        return f"{self.domain_name} {self.ip}"
+        if self.ip:
+            return f"Url: {self.domain_name} - Ip: {self.ip}"
+        else:
+            return f"Url: {self.domain_name}"
 
     @staticmethod
     def __check_date(will_expire_date: datetime.date, days_num: int = 30):
@@ -84,7 +87,12 @@ class Domain(LabelGroupMixin):
 
 @receiver(pre_save, sender=Domain)
 def fix_ip(sender, instance, **kwargs):
-    instance.ip = socket.gethostbyname(urlparse(instance.domain_name).netloc)
+    try:
+        instance.ip = socket.gethostbyname(
+            urlparse(instance.domain_name).netloc
+        )
+    except Exception:
+        pass
 
 
 class Server(LabelGroupMixin, IpModelMixin):

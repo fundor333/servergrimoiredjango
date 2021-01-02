@@ -6,6 +6,7 @@ from servergrimoiredjango.views import (
     GrimoireDomainView,
     GrimoireDomainAdd,
     GrimoireDomainUpdate,
+    GrimoireDomainDelete,
 )
 
 urlpatterns = [
@@ -22,6 +23,11 @@ urlpatterns = [
         "domain/<int:pk>/update",
         GrimoireDomainUpdate.as_view(),
         name="grimoire_domain_update",
+    ),
+    path(
+        "domain/<int:pk>/delete",
+        GrimoireDomainDelete.as_view(),
+        name="grimoire_domain_delete",
     ),
     path("", GrimoireDashboard.as_view(), name="grimoire_dashboard"),
 ]

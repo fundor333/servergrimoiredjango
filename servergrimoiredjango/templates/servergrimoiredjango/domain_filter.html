@@ -9,6 +9,7 @@
     <th scope="col">Ip</th>
     <th scope="col">State SSL</th>
     <th scope="col">State domain</th>
+    <th></th>
     <th><a href="{% url 'grimoire_domain_add' %}" class="link-light" target="_blank"><i data-feather="plus"></i></a></th>
   </tr>
   </thead>
@@ -20,6 +21,7 @@
     <td>{{e.stats_ssl.status}}</td>
     <td>{{e.stats_domain.status}}</td>
     <td><a class="link-light" href="{{e.get_absolute_url}}" target="_blank"><i data-feather="eye"></i></a></td>
+    <td><a class="link-light" href="{% url 'grimoire_domain_delete' e.pk %}?next={{ request.path|urlencode }}" target="_blank"><i data-feather="trash"></i></a></td>
   </tr>
   {% endfor %}
   </tbody>

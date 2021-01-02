@@ -1,50 +1,52 @@
 {% extends "grimoire/base.html" %}
 {% block content %}
-<h1> <a href="{% url 'grimoire_domain_list'%}" class="link-dark"><i data-feather="arrow-left"></i></a> Domain {{domain.domain_name}}</h1>
+<h1><a href="{% url 'grimoire_domain_list'%}" class="link-dark"><i data-feather="arrow-left"></i></a> Domain
+  {{domain.domain_name}} <a href="{% url 'grimoire_domain_update' domain.pk %}" class="link-dark"><i
+    data-feather="edit-3"></i></a></h1>
 
 <div class="container ">
   {% load app_tags %}
 
   {% for label in domain.labels.all %}
-    {% label_build label %}
+  {% label_build label %}
   {% endfor %}
 </div>
 <br>
 <div class="container-fluid row">
-<table class="table table-dark table-striped">
-  <thead>
-  <tr>
-    <th scope="col">Domain</th>
-    <th scope="col">{{domain.domain_name}}</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>Ip</td>
-    <td>{{domain.ip}}</td>
-  </tr>
-  <tr>
-    <td>Organizzation</td>
-    <td>{{domain.organizzation|default_if_none:""}}</td>
-  </tr>
-  <tr>
-    <td>SSL End Date</td>
-    <td>{{domain.ssl_end_date|date:'Y-m-d'|default_if_none:"****-**-**"}}</td>
-  </tr>
-  <tr>
-    <td>Domain End Date</td>
-    <td>{{ domain.domain_end_date|date:'Y-m-d'|default_if_none:"****-**-**" }}</td>
-  </tr>
-  <tr>
-    <td>Server</td>
-    <td>
-      {% if domain.server_connected %}
-      <i data-feather="server" ></i>
-      {{ domain.server_connected }}
-    {% endif %}
-    </td>
-  </tr>
-  </tbody>
-</table>
+  <table class="table table-dark table-striped">
+    <thead>
+    <tr>
+      <th scope="col">Domain</th>
+      <th scope="col">{{domain.domain_name}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>Ip</td>
+      <td>{{domain.ip}}</td>
+    </tr>
+    <tr>
+      <td>Organizzation</td>
+      <td>{{domain.organizzation|default_if_none:""}}</td>
+    </tr>
+    <tr>
+      <td>SSL End Date</td>
+      <td>{{domain.ssl_end_date|date:'Y-m-d'|default_if_none:"****-**-**"}}</td>
+    </tr>
+    <tr>
+      <td>Domain End Date</td>
+      <td>{{ domain.domain_end_date|date:'Y-m-d'|default_if_none:"****-**-**" }}</td>
+    </tr>
+    <tr>
+      <td>Server</td>
+      <td>
+        {% if domain.server_connected %}
+        <i data-feather="server"></i>
+        {{ domain.server_connected }}
+        {% endif %}
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
 {% endblock %}

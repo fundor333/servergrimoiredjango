@@ -1,0 +1,13 @@
+{% extends "grimoire/base.html" %}
+{% block content %}
+<br>
+<div class="row">
+  <div class="mr-auto ml-auto  text-center">
+    <form action="" method="post">{% csrf_token %}
+      <p>Are you sure you want to delete </p>
+      <p><a href="{{ object.get_absolute_url }}" target="_blank" class="btn link-success">{{ object }}</a></p>
+      <input type="submit" value="Confirm" class="btn col-sm-4 btn-outline-danger"/>
+    </form>
+  </div>
+</div>
+{% endblock %}

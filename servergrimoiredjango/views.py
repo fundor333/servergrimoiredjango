@@ -2,15 +2,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
-from django.views.generic import DetailView, CreateView, UpdateView
+from django.http import HttpResponseRedirect
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from django_filters.views import FilterView
 
 from servergrimoiredjango.filters import DomainFilter
-from servergrimoiredjango.models import Domain
+from servergrimoiredjango.models import Domain, reverse
 
 
 class GrimoireDashboard(LoginRequiredMixin, FilterView):
-    template_name = "servergrimoiredjango/dashboard.html"
     filterset_class = DomainFilter
     paginate_by = 20
 
@@ -28,6 +28,17 @@ class GrimoireDomainAdd(LoginRequiredMixin, CreateView):
         for visible in form.visible_fields():
             visible.field.widget.attrs["class"] = "form-control"
         return form
+
+
+class GrimoireDomainDelete(LoginRequiredMixin, DeleteView):
+    model = Domain
+
+    def get_success_url(self):
+        next = self.request.POST.get("next", False)
+        if next:
+            return HttpResponseRedirect(next)
+        else:
+            return reverse("grimoire_domain_list")
 
 
 class GrimoireDomainUpdate(LoginRequiredMixin, UpdateView):
